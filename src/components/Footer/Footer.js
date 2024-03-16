@@ -1,19 +1,15 @@
 "use client"
 
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import Link from '@mui/material/Link'
-import Box from '@mui/material/Box'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useTheme } from '@emotion/react'
-
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Link from '@mui/material/Link'
+import Typography from '@mui/material/Typography'
 
 
 export default function Footer() {
 
   const theme = useTheme()
-  console.log("useTheme", theme)
 
   return (
     <Box
