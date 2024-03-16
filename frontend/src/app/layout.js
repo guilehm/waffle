@@ -6,6 +6,9 @@ import theme from "../theme"
 import "./globals.css"
 import NavBar from "@/components/NavBar/NavBar"
 import Footer from "@/components/Footer/Footer"
+import { Raleway } from 'next/font/google'
+
+const raleway = Raleway({ subsets: ['latin'] })
 
 export const metadata = {
   title: "Fuzzy Train",
@@ -15,7 +18,7 @@ export const metadata = {
 export default function RootLayout(props) {
   return (
     <html lang="en">
-      <body>
+      <body className={raleway.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NavBar>
@@ -25,6 +28,6 @@ export default function RootLayout(props) {
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
-    </html>
+    </html >
   )
 }

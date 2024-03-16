@@ -27,7 +27,7 @@ const theme = createTheme({
   shape: {
     borderRadius: 8
   },
-  typography
+  typography,
 })
 
 export default theme
