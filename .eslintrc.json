@@ -1,7 +1,6 @@
 {
   "extends": [
-    "next/babel",
-    "next/core-web-vitals"
+    "next"
   ],
   "rules": {
     "newline-per-chained-call": [

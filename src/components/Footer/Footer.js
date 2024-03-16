@@ -1,10 +1,10 @@
 "use client"
 
-import { useTheme } from '@emotion/react'
-import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
-import Link from '@mui/material/Link'
-import Typography from '@mui/material/Typography'
+import { useTheme } from "@emotion/react"
+import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
+import Link from "@mui/material/Link"
+import Typography from "@mui/material/Typography"
 
 
 export default function Footer() {
@@ -32,8 +32,8 @@ export default function Footer() {
         </Typography>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
             mt: 2,
           }}
         >
