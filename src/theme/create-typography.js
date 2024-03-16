@@ -1,3 +1,5 @@
+"use client"
+
 export const createTypography = () => {
   return {
     fontFamily: "Raleway, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",

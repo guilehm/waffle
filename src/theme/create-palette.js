@@ -1,6 +1,8 @@
+"use client"
+
+import { error, black, info, neutral, success, warning } from "./colors"
 import { common } from "@mui/material/colors"
 import { alpha } from "@mui/material/styles"
-import { error, black, info, neutral, success, warning } from "./colors"
 
 export function createPalette() {
   return {
