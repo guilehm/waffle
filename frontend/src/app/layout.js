@@ -11,7 +11,7 @@ import "./globals.css"
 const raleway = Raleway({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Fuzzy Train",
+  title: "Waffle",
   description: "",
 }
 

@@ -29,7 +29,7 @@ services:
     networks:
       default:
         aliases:
-          - packpro.local.com
+          - waffle.local.com
 
 volumes:
   postgres-data:
