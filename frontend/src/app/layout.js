@@ -5,6 +5,7 @@ import theme from "../theme"
 
 import "./globals.css"
 import NavBar from "@/components/NavBar/NavBar"
+import Footer from "@/components/Footer/Footer"
 
 export const metadata = {
   title: "Fuzzy Train",
@@ -18,8 +19,9 @@ export default function RootLayout(props) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NavBar>
-              {props.children}
             </NavBar>
+            {props.children}
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
