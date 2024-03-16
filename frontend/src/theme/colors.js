@@ -29,8 +29,8 @@ export const neutral = {
 export const black = withAlphas({
   lightest: "#f7f7f7",
   light: "#e1e1e1",
-  main: "#333333",
-  dark: "#1a1a1a",
+  main: "#1f2937",
+  dark: "#111826",
   darkest: "#000000",
   contrastText: "#ffffff"
 })
