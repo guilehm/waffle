@@ -138,7 +138,7 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src="" />
+                <Avatar alt="" src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
