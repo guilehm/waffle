@@ -9,7 +9,6 @@ import {
   tableCellClasses
 } from "@mui/material"
 
-// Used only to create transitions
 const muiTheme = createTheme()
 
 export function createComponents(config) {

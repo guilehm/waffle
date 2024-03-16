@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material"
 import React from "react"
 
+
 export default function Jumbotron({ title, description, buttonText }) {
   return (
     <Box sx={{ my: 6 }} component={"section"}>
