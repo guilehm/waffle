@@ -6,24 +6,25 @@ import (
 	"tmdb/internal/app/ports"
 )
 
-type MovieAPIClient struct {
+type TMDBAPIClient struct {
 	baseURL string
 	client  *http.Client
 	apiKey  string
 }
 
 func NewMovieAPIClient(baseURL, apiKey string) ports.TMDBService {
-	return &MovieAPIClient{
+	return &TMDBAPIClient{
 		baseURL: baseURL,
 		client:  &http.Client{},
 		apiKey:  apiKey,
 	}
 }
 
-func (c *MovieAPIClient) MovieByID(id string) (*domain.Movie, error) {
+func (c *TMDBAPIClient) MovieByID(id string) (*domain.Movie, error) {
+	// make request, decode response to domain.Movie
 	return nil, nil
 }
 
-func (c *MovieAPIClient) SearchMovies(query string) ([]*domain.Movie, error) {
+func (c *TMDBAPIClient) SearchMovies(query string) ([]*domain.Movie, error) {
 	return nil, nil
 }
