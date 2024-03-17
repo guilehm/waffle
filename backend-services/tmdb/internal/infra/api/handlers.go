@@ -5,17 +5,17 @@ import (
 )
 
 type TMDBHandler struct {
-	movieUseCase *usecase.TMDBUseCase
+	tmdbUseCase *usecase.TMDBUseCase
 }
 
-func NewTMDBHandler(movieUseCase *usecase.TMDBUseCase) *TMDBHandler {
-	return &TMDBHandler{movieUseCase: movieUseCase}
+func NewTMDBHandler(tmdbUseCase *usecase.TMDBUseCase) *TMDBHandler {
+	return &TMDBHandler{tmdbUseCase: tmdbUseCase}
 }
 
-func (h *TMDBHandler) TMDBByID() {
+func (h *TMDBHandler) MovieByID() {
 	// call use case and handle responses
 }
 
-func (h *TMDBHandler) SearchTMDBs() {
+func (h *TMDBHandler) SearchMovies() {
 	// call use case and handle responses
 }

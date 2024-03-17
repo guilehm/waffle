@@ -12,7 +12,7 @@ type MovieAPIClient struct {
 	apiKey  string
 }
 
-func NewMovieAPIClient(baseURL, apiKey string) ports.MovieService {
+func NewMovieAPIClient(baseURL, apiKey string) ports.TMDBService {
 	return &MovieAPIClient{
 		baseURL: baseURL,
 		client:  &http.Client{},
