@@ -9,12 +9,14 @@ import (
 type MovieAPIClient struct {
 	baseURL string
 	client  *http.Client
+	apiKey  string
 }
 
-func NewMovieAPIClient(baseURL string) ports.MovieService {
+func NewMovieAPIClient(baseURL, apiKey string) ports.MovieService {
 	return &MovieAPIClient{
 		baseURL: baseURL,
 		client:  &http.Client{},
+		apiKey:  apiKey,
 	}
 }
 

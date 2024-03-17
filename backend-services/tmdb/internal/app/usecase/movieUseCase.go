@@ -15,7 +15,7 @@ func NewMovieUseCase(movieService ports.MovieService) *MovieUseCase {
 	}
 }
 
-func (uc *MovieUseCase) GetMovieDetails(id string) (*domain.Movie, error) {
+func (uc *MovieUseCase) MovieDetails(id string) (*domain.Movie, error) {
 	return uc.movieService.MovieByID(id)
 }
 
