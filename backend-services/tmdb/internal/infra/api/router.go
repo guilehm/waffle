@@ -2,6 +2,6 @@ package api
 
 import "tmdb/internal/app/usecase"
 
-func SetupRouter(movieUseCase *usecase.TMDBUseCase) {
+func SetupRouter(movieUseCase *usecase.MovieUseCase) {
 	return
 }

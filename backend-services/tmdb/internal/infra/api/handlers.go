@@ -5,11 +5,13 @@ import (
 )
 
 type TMDBHandler struct {
-	tmdbUseCase *usecase.TMDBUseCase
+	movieUseCase *usecase.MovieUseCase
 }
 
-func NewTMDBHandler(tmdbUseCase *usecase.TMDBUseCase) *TMDBHandler {
-	return &TMDBHandler{tmdbUseCase: tmdbUseCase}
+func NewTMDBHandler(movieUseCase *usecase.MovieUseCase) *TMDBHandler {
+	return &TMDBHandler{
+		movieUseCase: movieUseCase,
+	}
 }
 
 func (h *TMDBHandler) MovieByID() {

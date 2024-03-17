@@ -9,8 +9,8 @@ type MovieRepo struct {
 	// db connection
 }
 
-func NewMovieRepo( /* db connection */ ) ports.MovieRepository {
-	return &MovieRepo{ /* db connection */ }
+func NewMovieRepo() ports.MovieRepository {
+	return &MovieRepo{}
 }
 
 func (r *MovieRepo) FindByID(id string) (*domain.Movie, error) {
