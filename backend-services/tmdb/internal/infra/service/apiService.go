@@ -1,30 +1,30 @@
 package service
 
 import (
+	"log"
 	"net/http"
-	"tmdb/internal/app/domain"
+	"net/url"
+	"time"
 	"tmdb/internal/app/ports"
 )
 
 type TMDBAPIClient struct {
-	baseURL string
+	baseURL url.URL
 	client  *http.Client
 	apiKey  string
 }
 
-func NewMovieAPIClient(baseURL, apiKey string) ports.TMDBService {
-	return &TMDBAPIClient{
-		baseURL: baseURL,
-		client:  &http.Client{},
-		apiKey:  apiKey,
+func NewTMDBAPIClient(apiKey string, timeout int) ports.TMDBService {
+	baseURL, err := url.Parse("https://api.themoviedb.org/3/")
+	if err != nil {
+		log.Fatalln("parsing tmdb api base url")
 	}
-}
 
-func (c *TMDBAPIClient) MovieByID(id string) (*domain.Movie, error) {
-	// make request, decode response to domain.Movie
-	return nil, nil
-}
-
-func (c *TMDBAPIClient) SearchMovies(query string) ([]*domain.Movie, error) {
-	return nil, nil
+	return &TMDBAPIClient{
+		baseURL: *baseURL,
+		client: &http.Client{
+			Timeout: time.Duration(timeout) * time.Second,
+		},
+		apiKey: apiKey,
+	}
 }
