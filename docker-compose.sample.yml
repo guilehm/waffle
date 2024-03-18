@@ -2,6 +2,17 @@ version: "3.8"
 
 services:
 
+  tmdb:
+    build: ./backend-services/tmdb
+    container_name: tmdb
+    command: go run main.go
+    volumes:
+      - ./backend-services/tmdb:/go/src/tmdb
+    working_dir: /go/src/tmdb
+    environment:
+      PORT: 80
+      API_KEY: ""
+
   frontend:
     build: ./frontend/
     container_name: frontend
@@ -25,6 +36,7 @@ services:
       - 80:80
     links:
       - frontend:frontend
+      - tmdb:tmdb
 
     networks:
       default:
