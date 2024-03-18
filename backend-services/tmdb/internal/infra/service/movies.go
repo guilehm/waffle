@@ -9,7 +9,6 @@ import (
 )
 
 func (c *TMDBAPIClient) MovieByID(id string) (*domain.Movie, error) {
-	// make request, decode response to domain.Movie
 	u := c.MakeURL(EndpointMovies.Detail(id), nil)
 	req, err := c.CreateRequest(http.MethodGet, u, nil)
 	if err != nil {
