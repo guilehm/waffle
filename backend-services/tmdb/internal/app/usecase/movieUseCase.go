@@ -19,6 +19,6 @@ func (uc *MovieUseCase) MovieDetails(id string) (*domain.Movie, error) {
 	return uc.tmdbService.MovieByID(id)
 }
 
-func (uc *MovieUseCase) FindMovies(query string) ([]*domain.Movie, error) {
-	return uc.tmdbService.SearchMovies(query)
+func (uc *MovieUseCase) FindMovies(query string, page int) (*domain.MovieSearchResponse, error) {
+	return uc.tmdbService.SearchMovies(query, page)
 }
