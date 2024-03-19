@@ -6,17 +6,18 @@ import (
 )
 
 type Config struct {
-	Port       string
-	APIKey     string
-	APITimeout int
+	Port         string
+	APIKey       string
+	APITimeout   int
+	KafkaBrokers string
 }
 
 func LoadConfig() *Config {
-
 	return &Config{
-		Port:       loadEnv("PORT", "8080"),
-		APIKey:     loadEnv("API_KEY", ""),
-		APITimeout: loadIntEnv("API_TIMEOUT", 5),
+		Port:         loadEnv("PORT", "8080"),
+		APIKey:       loadEnv("API_KEY", ""),
+		APITimeout:   loadIntEnv("API_TIMEOUT", 5),
+		KafkaBrokers: loadEnv("KAFKA_BROKERS", "localhost:9092"),
 	}
 }
 
