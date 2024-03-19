@@ -6,6 +6,8 @@ type Movie struct {
 	OriginalTitle string  `json:"original_title"`
 	ReleaseDate   string  `json:"release_date"`
 	Popularity    float64 `json:"popularity"`
+	PosterPath    string  `json:"poster_path"`
+	BackdropPath  string  `json:"backdrop_path"`
 }
 
 type MovieSearchResponse struct {
