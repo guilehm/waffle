@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"log"
 	"tmdb/internal/app/usecase"
 	"tmdb/internal/config"
@@ -9,6 +10,7 @@ import (
 	"tmdb/internal/infra/messaging/kafka"
 	"tmdb/internal/infra/server"
 	"tmdb/internal/infra/service"
+	"tmdb/pkg/events"
 )
 
 func main() {
@@ -16,10 +18,27 @@ func main() {
 
 	cfg := config.LoadConfig()
 
+	// create kafka producer
 	kafkaProducer, err := kafka.NewProducer(cfg.KafkaBrokers)
 	if err != nil {
 		log.Fatalf("could not create kafka producer: %v", err)
 	}
+
+	// create kafka consumer
+	consumer, err := kafka.NewConsumer(cfg.KafkaBrokers, events.MovieSearchTopic)
+	if err != nil {
+		log.Fatalf("could not create kafka consumer: %v", err)
+	}
+
+	// start consuming messages
+	go func() {
+		err = consumer.Consume([]string{events.MovieSearchTopic}, func(m *ckafka.Message) {
+			fmt.Println("message consumed", m.TopicPartition, m.Key)
+		})
+		if err != nil {
+			log.Fatalf("could not start consumer: %v", err)
+		}
+	}()
 
 	movieService := service.NewTMDBAPIClient(cfg.APIKey, cfg.APITimeout)
 	movieUseCase := usecase.NewMovieUseCase(movieService, kafkaProducer)
