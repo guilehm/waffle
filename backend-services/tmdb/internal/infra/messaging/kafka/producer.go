@@ -10,8 +10,13 @@ type Producer struct {
 	producer *kafka.Producer
 }
 
-func NewProducer(brokers string) (*Producer, error) {
-	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": brokers})
+func NewProducer(brokers string, maxMessages int) (*Producer, error) {
+	p, err := kafka.NewProducer(&kafka.ConfigMap{
+		"bootstrap.servers":            brokers,
+		"queue.buffering.max.messages": maxMessages,
+		"queue.buffering.max.kbytes":   1024000,
+		"linger.ms":                    0,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -23,6 +28,7 @@ func (p *Producer) Publish(topic string, message []byte) error {
 	deliveryChan := make(chan kafka.Event, 1)
 
 	err := p.producer.Produce(&kafka.Message{
+		// TODO: set the key
 		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
 		Value:          message,
 	}, deliveryChan)

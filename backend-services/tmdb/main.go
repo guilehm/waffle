@@ -19,7 +19,7 @@ func main() {
 	cfg := config.LoadConfig()
 
 	// create kafka producer
-	kafkaProducer, err := kafka.NewProducer(cfg.KafkaBrokers)
+	kafkaProducer, err := kafka.NewProducer(cfg.KafkaBrokers, cfg.KafkaProducerMaxMessages)
 	if err != nil {
 		log.Fatalf("could not create kafka producer: %v", err)
 	}
@@ -33,7 +33,7 @@ func main() {
 	// start consuming messages
 	go func() {
 		err = consumer.Consume([]string{events.MovieSearchTopic}, func(m *ckafka.Message) {
-			fmt.Println("message consumed", m.TopicPartition, m.Key)
+			fmt.Println("message consumed", m.TopicPartition)
 		})
 		if err != nil {
 			log.Fatalf("could not start consumer: %v", err)
