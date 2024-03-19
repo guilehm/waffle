@@ -24,7 +24,7 @@ func (uc *MovieUseCase) MovieDetails(id string) (*domain.Movie, error) {
 }
 
 func (uc *MovieUseCase) FindMovies(query string, page int) (*domain.MovieSearchResponse, error) {
-	topic := events.MovieSearch
+	topic := events.MovieSearchTopic
 	response, err := uc.tmdbService.SearchMovies(query, page)
 	if err != nil {
 		return nil, err

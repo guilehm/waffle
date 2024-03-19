@@ -1,6 +1,6 @@
 package events
 
 const (
-	MovieDetails = "event.movie.details"
-	MovieSearch  = "event.movie.search"
+	MovieDetailsTopic = "event.movie.details"
+	MovieSearchTopic  = "event.movie.search"
 )
