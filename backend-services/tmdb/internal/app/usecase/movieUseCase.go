@@ -35,7 +35,7 @@ func (uc *MovieUseCase) FindMovies(query string, page int) (*domain.MovieSearchR
 		return nil, err
 	}
 
-	err = uc.producer.Publish(topic, data)
+	err = uc.producer.Produce(topic, data)
 	if err != nil {
 		return nil, err
 	}
