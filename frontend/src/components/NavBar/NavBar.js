@@ -17,12 +17,15 @@ import AdbIcon from "@mui/icons-material/Adb"
 import Link from "next/link"
 
 import SettingsContext from "@/contexts/settings-context"
+import { useTheme } from "@emotion/react"
 
 
 export default function NavBar() {
   const settings = useContext(SettingsContext)
   const pages = settings.pages
   const profilePages = settings.profile
+
+  const theme = useTheme()
 
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -127,7 +130,14 @@ export default function NavBar() {
               <Link key={page.title} href={page.url}>
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    "&:hover": {
+                      backgroundColor: theme.palette.primary.dark,
+                    },
+                  }}
                 >
                   {page.title}
                 </Button>
