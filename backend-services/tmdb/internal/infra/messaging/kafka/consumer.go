@@ -1,6 +1,7 @@
 package kafka
 
 import (
+	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"log/slog"
 	"tmdb/pkg/logging"
@@ -13,9 +14,10 @@ type Consumer struct {
 func NewConsumer(brokers, groupID string) (*Consumer, error) {
 	logger := logging.Logger
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": brokers,
-		"group.id":          groupID,
-		"auto.offset.reset": "earliest",
+		"bootstrap.servers":               brokers,
+		"group.id":                        groupID,
+		"auto.offset.reset":               "earliest",
+		"go.application.rebalance.enable": true,
 	})
 	if err != nil {
 		logger.Error("failed to create consumer", slog.String("error", err.Error()))
@@ -26,18 +28,37 @@ func NewConsumer(brokers, groupID string) (*Consumer, error) {
 
 func (c *Consumer) Consume(topics []string, handleMessage func(*kafka.Message)) error {
 	logger := logging.Logger
+
 	err := c.consumer.SubscribeTopics(topics, nil)
 	if err != nil {
-		logger.Error("failed to subscribe to topics", slog.String("error", err.Error()))
+		logger.Error(
+			"failed to subscribe to topics",
+			slog.String("error", err.Error()),
+		)
 		return err
 	}
 
-	for {
-		msg, err := c.consumer.ReadMessage(-1)
-		if err != nil {
-			logger.Error("error while reading message", slog.String("error", err.Error()))
-			continue
+	run := true
+	for run == true {
+		ev := c.consumer.Poll(100)
+		switch e := ev.(type) {
+		case *kafka.Message:
+			logger.Info(
+				"message consumed",
+				slog.String("topic_partition", fmt.Sprintf("%v", e.TopicPartition)),
+			)
+		case kafka.Error:
+			logger.Error(
+				"error while consuming message",
+				slog.String("error", e.Error()),
+			)
+			run = false
+		default:
+			logger.Debug(
+				"ignored",
+				slog.String("event", fmt.Sprintf("%v", e)),
+			)
 		}
-		handleMessage(msg)
 	}
+	return nil
 }

@@ -6,6 +6,7 @@ import (
 )
 
 type Config struct {
+	AppName                  string
 	Port                     string
 	APIKey                   string
 	APITimeout               int
@@ -15,6 +16,7 @@ type Config struct {
 
 func LoadConfig() *Config {
 	return &Config{
+		AppName:                  "tmdb",
 		Port:                     loadEnv("PORT", "8080"),
 		APIKey:                   loadEnv("API_KEY", ""),
 		APITimeout:               loadIntEnv("API_TIMEOUT", 5),

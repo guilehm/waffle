@@ -25,7 +25,7 @@ func main() {
 	}
 
 	// create kafka consumer
-	consumer, err := kafka.NewConsumer(cfg.KafkaBrokers, events.MovieSearchTopic)
+	consumer, err := kafka.NewConsumer(cfg.KafkaBrokers, cfg.AppName)
 	if err != nil {
 		log.Fatalf("could not create kafka consumer: %v", err)
 	}
