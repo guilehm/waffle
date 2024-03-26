@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"log"
 	"tmdb/internal/app/usecase"
 	"tmdb/internal/config"
@@ -29,18 +28,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not create kafka consumer: %v", err)
 	}
-	err = consumer.Consume([]string{events.MovieSearchTopic})
-	if err != nil {
-		log.Fatalf("could not start consumer: %v", err)
-	}
 
-	// start consuming messages
+	// start consumer
 	go func() {
-		err = consumer.Consume([]string{events.MovieSearchTopic}) {
-			fmt.Println("message consumed", m.TopicPartition)
-		})
+		err = consumer.Consume([]string{events.MovieSearchTopic})
 		if err != nil {
-			log.Fatalf("could not start consumer: %v", err)
+			log.Fatalf("could not consume messages: %v", err)
 		}
 	}()
 

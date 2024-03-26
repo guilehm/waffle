@@ -77,10 +77,7 @@ func (c *Consumer) Consume(topics []string) error {
 			)
 			run = false
 		default:
-			logger.Debug(
-				"ignored",
-				slog.String("event", fmt.Sprintf("%v", e)),
-			)
+			// ignored events
 		}
 	}
 	return nil
