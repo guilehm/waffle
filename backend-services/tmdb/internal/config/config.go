@@ -12,16 +12,19 @@ type Config struct {
 	APITimeout               int
 	KafkaBrokers             string
 	KafkaProducerMaxMessages int
+	KafkaMinCommitCount      int
 }
 
 func LoadConfig() *Config {
 	return &Config{
-		AppName:                  "tmdb",
-		Port:                     loadEnv("PORT", "8080"),
-		APIKey:                   loadEnv("API_KEY", ""),
-		APITimeout:               loadIntEnv("API_TIMEOUT", 5),
+		AppName:    "tmdb",
+		Port:       loadEnv("PORT", "8080"),
+		APIKey:     loadEnv("API_KEY", ""),
+		APITimeout: loadIntEnv("API_TIMEOUT", 5),
+
 		KafkaBrokers:             loadEnv("KAFKA_BROKERS", "localhost:9092"),
 		KafkaProducerMaxMessages: loadIntEnv("KAFKA_PRODUCER_MAX_MESSAGES", 100_000),
+		KafkaMinCommitCount:      loadIntEnv("KAFKA_MIN_COMMIT_COUNT", 100),
 	}
 }
 
