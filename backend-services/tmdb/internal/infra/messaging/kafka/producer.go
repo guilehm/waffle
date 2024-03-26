@@ -1,6 +1,7 @@
 package kafka
 
 import (
+	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"log/slog"
 	"tmdb/pkg/logging"
@@ -16,39 +17,50 @@ func NewProducer(brokers string, maxMessages int) (*Producer, error) {
 		"queue.buffering.max.messages": maxMessages,
 		"queue.buffering.max.kbytes":   1024000,
 		"linger.ms":                    0,
+		"acks":                         "all",
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &Producer{producer: p}, nil
+	producer := &Producer{producer: p}
+	go producer.handleDeliveryReports()
+	return producer, nil
 }
 
-func (p *Producer) Publish(topic string, message []byte) error {
+func (p *Producer) handleDeliveryReports() {
 	logger := logging.Logger
-	deliveryChan := make(chan kafka.Event, 1)
+	for e := range p.producer.Events() {
+		switch ev := e.(type) {
+		case *kafka.Message:
+			if ev.TopicPartition.Error != nil {
+				logger.Error(
+					"failed to deliver message",
+					slog.String("topic_partition", fmt.Sprintf("%v", ev.TopicPartition)),
+				)
+				continue
+			}
+
+			logger.Info(
+				"successfully produced message",
+				slog.String("topic", *ev.TopicPartition.Topic),
+				slog.Int("partition", int(ev.TopicPartition.Partition)),
+				slog.String("offset", ev.TopicPartition.Offset.String()),
+			)
+		}
+	}
+}
+
+func (p *Producer) Produce(topic string, message []byte) error {
+	logger := logging.Logger
 
 	err := p.producer.Produce(&kafka.Message{
 		// TODO: set the key
 		TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
 		Value:          message,
-	}, deliveryChan)
+	}, nil)
 	if err != nil {
 		logger.Error("failed to send message to Kafka", slog.String("error", err.Error()))
 		return err
 	}
-
-	e := <-deliveryChan
-	m := e.(*kafka.Message)
-	if m.TopicPartition.Error != nil {
-		logger.Error("delivery failed", slog.String("error", m.TopicPartition.Error.Error()))
-		return m.TopicPartition.Error
-	}
-
-	logger.Info(
-		"successfully delivered message",
-		slog.String("topic", topic),
-		slog.Int("partition", int(m.TopicPartition.Partition)),
-		slog.String("offset", m.TopicPartition.Offset.String()),
-	)
 	return nil
 }
