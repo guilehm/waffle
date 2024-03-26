@@ -7,6 +7,10 @@ export const settings = {
       title: "Home",
       url: "/",
     },
+    {
+      title: "Movies",
+      url: "/movies",
+    },
   ],
   profile: [
     {

@@ -18,6 +18,7 @@ import Link from "next/link"
 
 import SettingsContext from "@/contexts/settings-context"
 import { useTheme } from "@emotion/react"
+import { usePathname } from "next/navigation"
 
 
 export default function NavBar() {
@@ -25,6 +26,7 @@ export default function NavBar() {
   const pages = settings.pages
   const profilePages = settings.profile
 
+  const pathname = usePathname()
   const theme = useTheme()
 
   const [anchorElNav, setAnchorElNav] = useState(null)
@@ -134,6 +136,7 @@ export default function NavBar() {
                     my: 2,
                     color: "white",
                     display: "block",
+                    backgroundColor: pathname === page.url ? theme.palette.primary.dark : "transparent",
                     "&:hover": {
                       backgroundColor: theme.palette.primary.dark,
                     },
