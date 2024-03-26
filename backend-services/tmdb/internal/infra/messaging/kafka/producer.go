@@ -17,7 +17,7 @@ func NewProducer(brokers string, maxMessages int) (*Producer, error) {
 		"queue.buffering.max.messages": maxMessages,
 		"queue.buffering.max.kbytes":   1024000,
 		"linger.ms":                    0,
-		"acks":                         "all",
+		"acks":                         "1",
 	})
 	if err != nil {
 		return nil, err

@@ -25,14 +25,18 @@ func main() {
 	}
 
 	// create kafka consumer
-	consumer, err := kafka.NewConsumer(cfg.KafkaBrokers, cfg.AppName)
+	consumer, err := kafka.NewConsumer(cfg.KafkaBrokers, cfg.AppName, cfg.KafkaMinCommitCount)
 	if err != nil {
 		log.Fatalf("could not create kafka consumer: %v", err)
+	}
+	err = consumer.Consume([]string{events.MovieSearchTopic})
+	if err != nil {
+		log.Fatalf("could not start consumer: %v", err)
 	}
 
 	// start consuming messages
 	go func() {
-		err = consumer.Consume([]string{events.MovieSearchTopic}, func(m *ckafka.Message) {
+		err = consumer.Consume([]string{events.MovieSearchTopic}) {
 			fmt.Println("message consumed", m.TopicPartition)
 		})
 		if err != nil {
